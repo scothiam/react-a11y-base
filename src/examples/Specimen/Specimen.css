@@ -1,0 +1,190 @@
+.spec {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 3rem clamp(1.25rem, 4vw, 3.5rem) 5rem;
+}
+
+/* ---------- Head ---------- */
+.spec__head {
+  display: grid;
+  grid-template-columns: minmax(140px, 200px) 1fr;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.spec__num {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-right: 1px dashed var(--rule);
+  padding-right: clamp(1rem, 3vw, 2rem);
+}
+.spec__numlabel { color: var(--ink-3); }
+.spec__numfig {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(5rem, 12vw, 8rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  font-variation-settings: "opsz" 144, "SOFT" 0;
+}
+
+.spec__name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.25rem;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+}
+.spec__tag {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--ink-2);
+  margin: 0 0 1.5rem;
+  font-variation-settings: "opsz" 14;
+}
+
+.spec__meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem 1.5rem;
+  margin: 0;
+  padding: 0.75rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+.spec__meta > div { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.spec__meta dt { color: var(--ink-3); }
+.spec__meta dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  word-break: break-word;
+  color: var(--ink);
+}
+
+/* ---------- Description ---------- */
+.spec__desc {
+  padding: 2rem 0 1rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+  font-variation-settings: "opsz" 14;
+  max-width: 60ch;
+}
+.spec__desc :first-child { margin-top: 0; }
+.spec__desc strong { color: var(--ink); font-weight: 600; }
+.spec__desc code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--paper-2);
+  padding: 0.05em 0.35em;
+  border-radius: 2px;
+}
+
+/* ---------- Stage ---------- */
+.spec__stage {
+  margin-top: 2rem;
+  border: 1px solid var(--ink);
+  background: var(--paper-2);
+  position: relative;
+}
+.stage__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: var(--ink);
+  color: var(--paper);
+}
+.stage__head .mono { color: var(--paper); }
+.stage__hint { color: rgba(244, 241, 234, 0.55); }
+.stage__floor {
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 14px,
+      rgba(24, 20, 18, 0.025) 14px 15px
+    ),
+    var(--paper);
+  min-height: 200px;
+}
+
+/* ---------- Panels ---------- */
+.spec__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.spec__panel {
+  border-top: 2px solid var(--ink);
+  padding-top: 0.75rem;
+}
+.spec__h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.75rem;
+}
+.spec__h3 .mono { color: var(--mark); font-size: 0.85rem; }
+
+/* Keyboard table */
+.kbd, .aria { margin: 0; }
+.kbd__row, .aria__row {
+  display: grid;
+  grid-template-columns: minmax(110px, 35%) 1fr;
+  gap: 1rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px dotted var(--rule);
+  align-items: baseline;
+}
+.kbd__row:last-child, .aria__row:last-child { border-bottom: 0; }
+.kbd__row dt { margin: 0; display: flex; flex-wrap: wrap; gap: 0.25rem; }
+.kbd__row dd, .aria__row dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--ink-2);
+}
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-bottom-width: 2px;
+  padding: 0.05rem 0.4rem;
+  border-radius: 3px;
+  color: var(--ink);
+  min-width: 1.5em;
+  text-align: center;
+}
+.aria__row dt {
+  font-size: 0.72rem;
+  color: var(--mark);
+  word-break: break-word;
+}
+
+/* ---------- Foot ---------- */
+.spec__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule-strong);
+  color: var(--ink-3);
+  font-size: 0.7rem;
+}
+.spec__foot a { color: var(--ink); }

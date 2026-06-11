@@ -1,0 +1,1 @@
+export { SliderMulti } from "./SliderMulti";

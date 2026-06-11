@@ -1,0 +1,1 @@
+export { WindowSplitter } from "./WindowSplitter";

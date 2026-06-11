@@ -1,0 +1,47 @@
+.tt__lede { font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-3); margin: 0 0 1rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.tt__body {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  max-width: 50ch;
+  margin: 0;
+  color: var(--ink-2);
+  font-variation-settings: "opsz" 24;
+}
+
+.tt__chunk { white-space: nowrap; }
+
+.tt__term {
+  background: transparent;
+  border: 0;
+  font: inherit;
+  color: var(--mark);
+  border-bottom: 1px dotted var(--mark);
+  padding: 0;
+  cursor: help;
+  font-style: italic;
+}
+.tt__term:focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
+
+.tt__content {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 0.9rem;
+  border-radius: 2px;
+  max-width: 280px;
+  display: grid;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  box-shadow: 3px 3px 0 rgba(24, 20, 18, 0.4);
+  z-index: 70;
+  animation: tt-pop 100ms ease-out;
+}
+.tt__head { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mark); }
+.tt__arrow { fill: var(--ink); }
+
+@keyframes tt-pop {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}

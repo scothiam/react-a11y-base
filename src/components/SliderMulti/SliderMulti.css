@@ -1,0 +1,15 @@
+.slm__dash { color: var(--ink-3); margin: 0 0.25rem; font-style: italic; }
+.slm__hist {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 80px;
+  margin-top: 1.5rem;
+  padding: 0 4px;
+}
+.slm__bar {
+  flex: 1;
+  background: var(--ink);
+  display: block;
+  transition: opacity 120ms ease;
+}

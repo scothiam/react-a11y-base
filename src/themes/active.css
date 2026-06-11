@@ -1,0 +1,5 @@
+/* ---------------------------------------------------------------------------
+   Active theme — change the @import below to switch the project's look.
+   Available themes live alongside this file in src/themes/.
+--------------------------------------------------------------------------- */
+@import "./ticker.css";

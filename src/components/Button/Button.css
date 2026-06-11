@@ -1,0 +1,4 @@
+.btn { display: grid; gap: 1.25rem; }
+.btn__row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.btn__counter { color: var(--ink-3); margin-left: auto; font-size: 0.7rem; }
+.btn__toggle[data-selected] { background: var(--mark); color: var(--paper); border-color: var(--mark); }

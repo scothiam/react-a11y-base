@@ -1,0 +1,77 @@
+.ws {
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: var(--paper);
+  overflow: hidden;
+  height: 420px;
+}
+.ws__group { height: 100%; }
+.ws__pane { display: flex; flex-direction: column; background: var(--paper); overflow: auto; }
+.ws__pane--main { background: var(--paper-2); }
+
+.ws__head {
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-2);
+  color: var(--ink-3);
+}
+
+.ws__list {
+  list-style: none;
+  padding: 0.5rem 0.75rem;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.ws__code {
+  margin: 0;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--ink);
+  white-space: pre;
+  overflow: auto;
+}
+
+.ws__console {
+  padding: 1rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--ink-2);
+  margin: 0;
+}
+.ws__console kbd {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 0.05rem 0.35rem;
+  border-radius: 2px;
+}
+
+.ws__handle {
+  position: relative;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 80ms ease;
+}
+.ws__handle--h { width: 6px; cursor: col-resize; }
+.ws__handle--v { height: 6px; cursor: row-resize; }
+.ws__handle:hover,
+.ws__handle:focus-visible { background: var(--mark); outline: none; }
+.ws__handle[data-separator][aria-orientation]:focus-visible .ws__grip { background: var(--paper); }
+
+.ws__grip {
+  display: block;
+  width: 2px;
+  height: 24px;
+  background: var(--paper);
+  border-radius: 2px;
+}
+.ws__grip--v { width: 24px; height: 2px; }

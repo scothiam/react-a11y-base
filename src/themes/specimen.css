@@ -1,0 +1,180 @@
+/* ===========================================================================
+   THEME · Specimen
+   ----------------------------------------------------------------------------
+   The original editorial "type specimen" look: warm paper ground, deep ink,
+   vintage caution-orange accent, Fraunces + JetBrains Mono.
+=========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap");
+
+:root {
+  /* Palette */
+  --paper: #f4f1ea;
+  --paper-2: #ece7dc;
+  --paper-3: #e3ddcc;
+  --ink: #181412;
+  --ink-2: #3a322b;
+  --ink-3: #6b605a;
+  --rule: rgba(24, 20, 18, 0.14);
+  --rule-strong: rgba(24, 20, 18, 0.4);
+  --mark: #e94e1b;
+  --mark-soft: rgba(233, 78, 27, 0.12);
+  --highlight: #f4d03f;
+  --ok: #2e6f40;
+  --warn: #b15c00;
+
+  /* Typography */
+  --font-display: "Fraunces", "Times New Roman", serif;
+  --font-body: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Metrics */
+  --rail: 320px;
+  --gap: 1.25rem;
+  --radius: 2px;
+
+  color-scheme: light;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-feature-settings: "ss01", "ss02", "liga", "kern";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(rgba(24, 20, 18, 0.05) 1px, transparent 1px),
+    radial-gradient(rgba(24, 20, 18, 0.04) 1px, transparent 1px);
+  background-size: 22px 22px, 7px 7px;
+  background-position: 0 0, 11px 11px;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--rule-strong);
+  transition: text-decoration-color 120ms ease, color 120ms ease;
+}
+a:hover { text-decoration-color: var(--mark); color: var(--mark); }
+a:focus-visible {
+  outline: 2px solid var(--mark);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+button { font: inherit; color: inherit; }
+
+/* Mono label primitive */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ----------------------------------------------------------------------------
+   STAGE PRIMITIVES — small reusable building blocks used inside .stage__floor
+---------------------------------------------------------------------------- */
+
+.s-btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-bottom-width: 2px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  transition: transform 80ms ease, background 80ms ease, color 80ms ease;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.s-btn:hover { background: var(--ink); color: var(--paper); }
+.s-btn:active { transform: translateY(1px); border-bottom-width: 1px; }
+.s-btn[aria-pressed="true"],
+.s-btn[data-state="on"],
+.s-btn[data-state="active"] {
+  background: var(--mark);
+  color: var(--paper);
+  border-color: var(--mark);
+}
+.s-btn:disabled { opacity: 0.4; cursor: not-allowed; background: var(--paper); color: var(--ink); }
+.s-btn--primary { background: var(--mark); color: var(--paper); border-color: var(--mark); }
+.s-btn--primary:hover { background: var(--ink); border-color: var(--ink); }
+.s-btn--ghost { border-color: transparent; border-bottom-color: var(--rule); background: transparent; }
+.s-btn--ghost:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.s-btn--danger { background: var(--paper); color: #8a1a05; border-color: #8a1a05; }
+.s-btn--danger:hover { background: #8a1a05; color: var(--paper); }
+
+.s-input,
+.s-textarea {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  padding: 0.45rem 0.6rem;
+  min-width: 0;
+  width: 100%;
+}
+.s-textarea { font-family: var(--font-body); font-size: 1rem; line-height: 1.5; }
+.s-input:focus, .s-textarea:focus {
+  outline: 2px solid var(--mark);
+  outline-offset: 1px;
+}
+
+.s-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-family: var(--font-display);
+}
+.s-field > label, .s-field > .s-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.s-help { font-size: 0.85rem; color: var(--ink-3); }
+
+.s-caption {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  text-align: center;
+  font-variation-settings: "opsz" 14, "SOFT" 70;
+}
+
+.s-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+}
+.s-tag--ghost { background: transparent; color: var(--ink-3); border: 1px dashed var(--rule-strong); }
+.s-tag--mark { background: var(--mark); color: var(--paper); }
+
+.s-frame {
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 1rem;
+  border-radius: 2px;
+}

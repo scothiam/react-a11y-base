@@ -1,0 +1,63 @@
+.tb__root {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 0.25rem;
+  border-radius: 2px;
+  flex-wrap: wrap;
+}
+.tb__group { display: flex; gap: 0.15rem; }
+.tb__btn {
+  background: transparent;
+  border: 0;
+  width: 32px; height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 2px;
+  color: var(--ink);
+}
+.tb__btn:hover { background: var(--paper-2); }
+.tb__btn[data-state="on"] { background: var(--ink); color: var(--paper); }
+
+.tb__sep {
+  width: 1px;
+  align-self: stretch;
+  background: var(--rule);
+  margin: 0 0.25rem;
+}
+
+.tb__link {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.6rem;
+  text-decoration: none;
+  color: var(--ink-3);
+}
+.tb__link:hover { color: var(--mark); }
+
+.tb__preview {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--paper);
+  border: 1px dashed var(--rule-strong);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.tb__preview kbd {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: var(--paper-2);
+  border: 1px solid var(--ink);
+  padding: 0.05rem 0.35rem;
+  border-radius: 2px;
+}

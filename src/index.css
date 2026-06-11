@@ -1,0 +1,42 @@
+/* ---------------------------------------------------------------------------
+   UNIVERSAL — resets, focus rings, helpers shared by every theme.
+   Theme-specific tokens, fonts, surfaces and the .s-* stage primitives live
+   in src/themes/<name>.css; one theme is wired in via src/themes/active.css
+   which is imported from src/main.tsx.
+--------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body { margin: 0; }
+
+/* Visually hidden helper */
+.sr {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+/* Generic horizontal rule (themed via --rule) */
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule, currentColor);
+  margin: 0;
+}
+
+/* Universal focus ring — themes provide --mark */
+:where(button, [role="button"], a, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--mark, currentColor);
+  outline-offset: 2px;
+}
