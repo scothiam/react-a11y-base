@@ -28,12 +28,10 @@ The extension is recorded in each specimen’s header.
 
 Two themes ship out of the box:
 
-- **`ticker`** *(active by default)* — a Bootstrap-flavoured financial
-  dashboard look that matches the sibling
-  [`stock-evaluator-frontend`](../ticker-snapshot/stock-evaluator-frontend)
-  project: system sans, white surfaces on a light grey ground, Bootstrap blue
-  accent, compact rows. This is the base every downstream project starts
-  from.
+- **`base`** *(active by default)* — a clean, Bootstrap-flavoured base theme:
+  system sans, white surfaces on a light grey ground, blue accent, compact
+  rows. This is the starting point every downstream project imports and
+  overrides with their own tokens.
 - **`specimen`** — the original editorial "type specimen" look: warm paper,
   deep ink, vintage caution-orange accent, Fraunces + JetBrains Mono.
 
@@ -100,7 +98,7 @@ src/
   themes/
     active.css              # 1-line @import — picks the active theme
     specimen.css            # editorial type-specimen look
-    ticker.css              # Bootstrap-y dashboard look (default)
+    base.css              # Bootstrap-y dashboard look (default)
     <your-theme>.css        # drop a new file here per downstream project
 ```
 
@@ -124,14 +122,14 @@ never need to know which theme is active.
 Edit one line in `src/themes/active.css`:
 
 ```css
-@import "./ticker.css";   /* or "./specimen.css", or "./your-theme.css" */
+@import "./base.css";   /* or "./specimen.css", or "./your-theme.css" */
 ```
 
 Restart `npm run dev` (Vite picks the change up on the next page reload).
 
 #### Adding a project-specific theme
 
-1. Copy `src/themes/ticker.css` to `src/themes/<your-project>.css` and
+1. Copy `src/themes/base.css` to `src/themes/<your-project>.css` and
    adjust the tokens + overrides to taste.
 2. Point `src/themes/active.css` at it.
 3. If the theme uses external webfonts, add an `@import url(...)` at the top
@@ -230,7 +228,7 @@ src/
   themes/
     active.css            # 1-line @import selecting the project's theme
     specimen.css          # editorial type-specimen tokens + primitives
-    ticker.css            # Bootstrap-y dashboard tokens + primitives + overrides
+    base.css            # Bootstrap-y dashboard tokens + primitives + overrides
   data/patterns.ts        # catalogue metadata for this demo site (slug, library, APG link)
   layout/
     Shell.tsx / .css      # app chrome (sidebar + main pane)
