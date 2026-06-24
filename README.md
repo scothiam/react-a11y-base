@@ -273,12 +273,44 @@ src/
 
 ### Using components in another project
 
-Copy `src/components/`, `src/themes/`, and `src/index.css`. Import directly:
+Add the git dependency (same pattern as gpu-price-checker, job-hunt, etc.):
+
+```json
+"react-a11y-base": "github:scothiam/react-a11y-base"
+```
+
+**CSS bootstrap** — import in this order from your app entry (`main.tsx` / `main.jsx`):
+
+```tsx
+import "react-a11y-base/index.css";        // resets, focus rings, .sr
+import "react-a11y-base/styles";           // component structural CSS (lib/index.css)
+import "react-a11y-base/themes/base.css";  // design tokens + .s-* primitives
+import "./index.css";                      // project layout + token overrides only
+```
+
+Storybook previews should import the same three package stylesheets before local CSS.
+
+**Components** — import from the package barrel:
+
+```tsx
+import { Accordion, Tabs, Table, Dialog } from "react-a11y-base";
+```
+
+Extend styling via CSS custom properties (`--mark`, `--surface`, `--paper`, etc.)
+and scoped selectors in your project CSS. Do not fork components unless behaviour
+must change.
+
+Optional: add `src/themes/<project>.css` with token overrides and import it
+after `themes/base.css` instead of redefining tokens in app CSS.
+
+#### Copying source (alternative)
+
+For heavy customization you can still copy `src/components/`, `src/themes/`, and
+`src/index.css` into a project and import relatively:
 
 ```tsx
 import { Accordion } from "./components/Accordion";
 import { Tabs } from "./components/Tabs";
-import { ActionButton } from "./components/Button";
 ```
 
 You do not need `examples/` or `data/patterns.ts` unless you want the specimen
