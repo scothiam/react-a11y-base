@@ -9,7 +9,8 @@
     ".": "./lib/index.js",
     "./styles": "./lib/index.css",
     "./index.css": "./src/index.css",
-    "./themes/*.css": "./src/themes/*.css"
+    "./themes/*.css": "./src/themes/*.css",
+    "./vite/sitemap": "./lib/vite/sitemap.js"
   },
   "files": [
     "lib",
@@ -21,11 +22,12 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "vite build --config vite.lib.config.ts"
+    "prepare": "vite build --config vite.lib.config.ts && vite build --config vite.sitemap.config.ts"
   },
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18"
+    "react-dom": ">=18",
+    "vite": ">=5"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",

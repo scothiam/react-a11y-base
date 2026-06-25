@@ -142,81 +142,76 @@ the sidebar shell, the specimen header layout — is shared infrastructure.
 
 ### Sitemap
 
-`sitemap.xml` and `robots.txt` are generated from `src/data/patterns.ts` by a
-small Vite plugin defined in `vite.config.ts`. The plugin emits one `<url>`
-entry for `/` plus one for each `/pattern/<slug>`, so adding a new pattern
-automatically registers it for crawlers — there is no separate list to keep
-in sync.
+Export **`createSitemapPlugin`** from `react-a11y-base/vite/sitemap`. Each
+consumer app supplies a small `src/sitemap.entries.js` that returns the paths
+to include; the plugin serves `/sitemap.xml` and `/robots.txt` in dev and
+writes both into `dist/` on build.
 
-The plugin runs in **both modes**:
+**Dev:** middleware runs before React Router — use the port Vite prints
+(e.g. `curl http://localhost:5173/sitemap.xml`). `<loc>` URLs use the dev
+server host so local a11y scans work.
 
-- During `npm run dev`, the files are served live by a tiny middleware
-  at <http://localhost:5173/sitemap.xml> and
-  <http://localhost:5173/robots.txt>. Nothing is written to disk.
-- During `npm run build`, the same files are written into `dist/sitemap.xml`
-  and `dist/robots.txt` so they can be deployed as static assets.
+**Production:** set `VITE_SITE_URL` before `npm run build` so `<loc>` uses your
+real origin (S3/CloudFront URL). Upload `dist/sitemap.xml` and `dist/robots.txt`
+with the rest of the static site.
 
-#### Preview the sitemap locally
+#### Wire up a frontend
+
+1. Add `src/sitemap.entries.js`:
+
+```js
+/** @returns {{ loc: string, priority?: string, changefreq?: string }[]} */
+export default function getEntries() {
+  return [{ loc: '/', priority: '1.0', changefreq: 'weekly' }];
+}
+```
+
+For study guides, import JSON and use the helper:
+
+```js
+import guides from './data/study-guides.json';
+import { pathsFromStudyGuides } from 'react-a11y-base/vite/sitemap';
+
+export default function getEntries() {
+  return pathsFromStudyGuides(guides);
+}
+```
+
+2. Register the plugin in `vite.config.js`:
+
+```js
+import { createSitemapPlugin } from 'react-a11y-base/vite/sitemap';
+import getEntries from './src/sitemap.entries.js';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    createSitemapPlugin({ getEntries }),
+  ],
+});
+```
+
+3. Verify:
 
 ```bash
 npm run dev
-# open http://localhost:5173/sitemap.xml
-# open http://localhost:5173/robots.txt
+curl -sf http://localhost:5173/sitemap.xml | head
+curl -sf http://localhost:5173/robots.txt
+
+VITE_SITE_URL="https://your-domain.example" npm run build
+ls dist/sitemap.xml dist/robots.txt
 ```
 
-If the dev server claims another port (5174, 5175, …), use that one. The
-SPA's catch-all route does not interfere because the middleware runs
-before React Router takes over.
+Requires **Vite >= 5** (peer dependency).
 
-#### Regenerate the sitemap for production
+This library's pattern showcase uses the same plugin via `src/sitemap.entries.ts`
+and `patterns.ts`.
 
-1. **Edit pattern metadata (if applicable).** Add, remove, or rename entries
-   in `src/data/patterns.ts`. The `slug` field is what gets written to
-   `<loc>`.
-2. **Set the canonical origin.** Export `VITE_SITE_URL` to the absolute URL
-   the site is served from. If unset, the sitemap falls back to
-   `https://example.com` so the build never fails.
-   ```bash
-   export VITE_SITE_URL="https://your-domain.example"
-   ```
-   For a one-shot build you can prefix the command instead:
-   ```bash
-   VITE_SITE_URL="https://your-domain.example" npm run build
-   ```
-   To make the value permanent for local builds, create `.env.local` in the
-   project root and add:
-   ```
-   VITE_SITE_URL=https://your-domain.example
-   ```
-   Vite picks the value up automatically in both dev and build. (Note:
-   `.env.local` is git-ignored.)
-3. **Run the build.**
-   ```bash
-   npm run build
-   ```
-4. **Verify the output.**
-   ```bash
-   ls dist/sitemap.xml dist/robots.txt
-   grep -c "<url>" dist/sitemap.xml   # should equal patterns.length + 1
-   head -20 dist/sitemap.xml
-   ```
-   Or preview it locally with the production server:
-   ```bash
-   npm run preview                    # http://localhost:4173/sitemap.xml
-   ```
-5. **Deploy.** Upload the contents of `dist/` as usual; both files live at the
-   site root (`/sitemap.xml`, `/robots.txt`) and `robots.txt` already points
-   crawlers at the sitemap.
+#### Customising entries
 
-To regenerate without rebuilding the whole app, just rerun `npm run build` —
-the sitemap step is part of Vite's `generateBundle` hook and takes
-milliseconds.
-
-#### Customising the sitemap
-
-The plugin lives at the top of `vite.config.ts` (function `sitemap()`).
-Tweak it directly to change `<priority>`, `<changefreq>`, `<lastmod>`, or to
-exclude routes — for example, by filtering `PATTERNS` before mapping it.
+Edit `src/sitemap.entries.js` in your app — add routes, read slugs from JSON,
+filter paths. To change PDF/HTML layout of audit reports, see ai-dev-stack
+`tasks/a11y/report.mjs` (separate from this plugin).
 
 ## Project layout
 
@@ -294,6 +289,26 @@ Storybook previews should import the same three package stylesheets before local
 
 ```tsx
 import { Accordion, Tabs, Table, Dialog } from "react-a11y-base";
+```
+
+**Vite dev** — exclude the library from dependency pre-bundling so the thin ESM
+build is served as-is (avoids `Dynamic require of "react" is not supported`):
+
+```ts
+export default defineConfig({
+  plugins: [react()],
+  optimizeDeps: {
+    exclude: ["react-a11y-base"],
+  },
+});
+```
+
+After updating the git dependency, reinstall so the `prepare` hook rebuilds
+`lib/index.js` (~2k lines, not a monolithic bundle):
+
+```bash
+rm -rf node_modules/react-a11y-base node_modules/.vite
+npm install
 ```
 
 Extend styling via CSS custom properties (`--mark`, `--surface`, `--paper`, etc.)
