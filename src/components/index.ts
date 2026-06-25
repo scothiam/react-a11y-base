@@ -7,7 +7,7 @@ export {
   ButtonGroup,
   type ButtonVariant,
 } from "./Button";
-export { Alert, type AlertMessage } from "./Alert";
+export { Alert, type AlertMessage, StatusAlert } from "./Alert";
 export { AlertDialog } from "./AlertDialog";
 export { Breadcrumb, type BreadcrumbItem } from "./Breadcrumb";
 export { Carousel, type CarouselSlide } from "./Carousel";
@@ -28,10 +28,11 @@ export {
   getListboxSelectionLabels,
   type ListboxOption,
 } from "./Listbox";
-export { MenuButton } from "./MenuButton";
+export { MenuButton, type MenuButtonItem } from "./MenuButton";
 export { Menubar } from "./Menubar";
 export { Meter } from "./Meter";
 export { RadioGroup, type RadioOption } from "./RadioGroup";
+export { AriaRouterBridge } from "./RouterBridge";
 export { Slider } from "./Slider";
 export { SliderMulti } from "./SliderMulti";
 export { Spinbutton } from "./Spinbutton";
