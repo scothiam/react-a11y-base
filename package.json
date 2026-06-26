@@ -7,10 +7,12 @@
   "module": "./lib/index.js",
   "exports": {
     ".": "./lib/index.js",
+    "./content-source": "./lib/content-source.js",
     "./styles": "./lib/index.css",
     "./index.css": "./src/index.css",
     "./themes/*.css": "./src/themes/*.css",
-    "./vite/sitemap": "./lib/vite/sitemap.js"
+    "./vite/sitemap": "./lib/vite/sitemap.js",
+    "./vite/content-source": "./lib/vite/content-source.js"
   },
   "files": [
     "lib",
@@ -22,7 +24,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "vite build --config vite.lib.config.ts && vite build --config vite.sitemap.config.ts"
+    "prepare": "vite build --config vite.lib.config.ts && vite build --config vite.sitemap.config.ts && vite build --config vite.content-source.config.ts"
   },
   "peerDependencies": {
     "react": ">=18",
