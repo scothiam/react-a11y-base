@@ -15,7 +15,11 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: (id) => id === "vite" || id.startsWith("vite/"),
+      external: (id) =>
+        id === "vite" ||
+        id.startsWith("vite/") ||
+        id === "node:fs" ||
+        id === "node:path",
     },
     outDir: "lib",
     emptyOutDir: false,
