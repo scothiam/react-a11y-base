@@ -38,16 +38,19 @@ export function resolveContentSource(
   );
 }
 
-/** Client-side mode from import.meta.env (requires envPrefix including CONTENT_). */
+/**
+ * Client-side mode from the app Vite env object.
+ * Pass `import.meta.env` from application source (not from a pre-bundled dependency).
+ */
 export function getContentSourceMode(
-  env: Record<string, string | undefined> = import.meta.env,
+  env: Record<string, string | undefined>,
 ): ContentSourceMode {
   return resolveContentSource(env).mode;
 }
 
 /** Relative API prefix for proxied requests (e.g. "/api"). */
 export function getApiPathPrefix(
-  env: Record<string, string | undefined> = import.meta.env,
+  env: Record<string, string | undefined>,
 ): string {
   const { apiBase } = resolveContentSource(env);
   if (!apiBase) {
@@ -59,7 +62,7 @@ export function getApiPathPrefix(
 
 export async function fetchApiJson<T = unknown>(
   path: string,
-  env: Record<string, string | undefined> = import.meta.env,
+  env: Record<string, string | undefined>,
 ): Promise<T> {
   const prefix = getApiPathPrefix(env);
   const normalized = path.startsWith("/") ? path : `/${path}`;
